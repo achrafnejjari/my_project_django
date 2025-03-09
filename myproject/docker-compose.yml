@@ -1,0 +1,49 @@
+services:
+  web:
+    build: .  #build kat9ol l docker fin howa dockerfile bach idir build mn3ando omi derna . y3ni kat9ole bili dockerfile kayn f current directory ay  /app likayn f docker 
+    ports:
+      - "8081:8081"
+    volumes:
+      - .:/app
+    working_dir: /app
+    depends_on:
+      - db  # Ensure that the database service starts before web
+
+#container of database (mysql)
+  db:
+    image: mysql:latest  # Use the latest MySQL image
+    container_name: mysql_container
+    restart: always  # Restart if it crashes
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password  # Set root password
+      MYSQL_DATABASE: my_database  # Create a default database
+      MYSQL_USER: my_user  # Create a database user
+      MYSQL_PASSWORD: my_password  # Set user password
+    ports:
+      - "3306:3306"  # Expose MySQL port
+    volumes:
+      - mysql_data:/var/lib/mysql  # Persist data
+
+volumes:
+  mysql_data:  # Define volume for MySQL storage
+
+
+# explination :
+
+# docker-compose.yml
+# docker-compose.yml is a configuration file that defines how Docker containers should be run. It is used to set up and manage multiple containers that your application needs.
+
+# services:
+# This section defines the different containers (services) needed for your application. In your case, you have one service for the web app (Django).
+
+# 1. web:
+# This is the name of the service (you could name it anything, but it's often called web when it's the main application).
+# 2. build: .
+# This tells Docker to build the container image using the current directory (.), which contains the Dockerfile.
+# 3. ports:
+# "8081:8081": This binds port 8081 from the container to port 8081 on your local machine.
+# It means that when you access http://127.0.0.1:8081 on your host machine, you’ll be talking to the Django application running inside the container on port 8081.
+# 4. volumes:
+# .:/app: This mounts the current directory (.) on your host machine to the /app directory inside the container. This means that any changes you make to the files on your local machine will immediately reflect in the container. This is useful during development because it allows you to edit your files locally and see changes in real-time without rebuilding the container.
+# 5. working_dir: /app
+# This sets the working directory to /app in the container, which is where your Django project files are located.

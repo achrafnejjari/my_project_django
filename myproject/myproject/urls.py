@@ -14,12 +14,36 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+
+# Add a simple view for the root URL
+def home(request):
+    return HttpResponse("Hello, Dockerized Django!")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('pages/', include('pages.urls')),  # Make sure this is correct
+    path('', home),  # Map the root URL to the home view
+    path('pages/', include('pages.urls')),
+    
 ]
+
+
+
+
+
+
+
+
+
+# from django.contrib import admin
+# from django.urls import path, include
+
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('pages/', include('pages.urls')),  # Make sure this is correct
+# ]
 
 

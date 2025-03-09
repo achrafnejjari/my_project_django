@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-9fmo8idyhj3*y-*)v%m$pzg@buz%4(yru5fz46$2(l63(r!j+x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#ALLOWED_HOSTS= [] it was like that 
+ALLOWED_HOSTS = ['*']  # i add * for docker 
 
 
 # Application definition
@@ -76,9 +77,18 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'my_database',
+        'USER': 'my_user',
+        'PASSWORD': 'my_password',
+        'HOST': 'db',  # This is the name of the MySQL service in docker-compose
+        'PORT': '3306',
     }
 }
 
